@@ -153,7 +153,11 @@ fileprivate struct JGProgressHUDHost: UIViewRepresentable {
         
         constructionCoordinator.presentedHUD = hud
         
-        hud.show(in: uiView)
+        let keyWindow = UIApplication.shared.windows.filter({ $0.isKeyWindow }).first
+        
+        let parentView = keyWindow ?? uiView
+        
+        hud.show(in: parentView)
         
         hud.perform(afterDismiss: {
             constructionCoordinator.constructor = nil
